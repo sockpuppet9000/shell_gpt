@@ -27,6 +27,10 @@ def _read_codex_auth_json() -> Optional[str]:
         return None
     try:
         data = json.loads(auth_path.read_text())
+        # ChatGPT plan logins record OAuth tokens instead of an API key, so the
+        # OPENAI_API_KEY field is only present when Codex has an actual key to
+        # reuse (for example, after piping a usage-based API key via
+        # `codex login --with-api-key`).
         return data.get("OPENAI_API_KEY") or data.get("openai_api_key")
     except Exception:
         return None

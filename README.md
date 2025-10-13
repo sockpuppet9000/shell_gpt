@@ -15,7 +15,7 @@ By default, ShellGPT uses OpenAI's API and GPT-4 model. You'll need an API key, 
 > **❗️Note that ShellGPT is not optimized for local models and may not work as expected.**
 
 ### Use sgpt with Codex login
-If you use the Codex CLI and run `codex login`, it stores credentials in `~/.codex/auth.json` (or `$CODEX_HOME/auth.json`). When `OPENAI_API_KEY` is not set and `~/.config/shell_gpt/.sgptrc` does not contain a key, ShellGPT will automatically reuse the value from Codex so you can start using `sgpt` without additional setup.
+If you use the Codex CLI and run `codex login`, it stores credentials in `~/.codex/auth.json` (or `$CODEX_HOME/auth.json`). When `OPENAI_API_KEY` is not set and `~/.config/shell_gpt/.sgptrc` does not contain a key, ShellGPT will automatically reuse the value from Codex so you can start using `sgpt` without additional setup. The Codex CLI only writes `OPENAI_API_KEY` when an API key is actually provisioned (for example, legacy usage-based billing); ChatGPT plan logins populate OAuth tokens instead, so there may be no key to reuse in that case.
 
 ## Usage
 **ShellGPT** is designed to quickly analyse and retrieve information. It's useful for straightforward requests ranging from technical configurations to general knowledge.

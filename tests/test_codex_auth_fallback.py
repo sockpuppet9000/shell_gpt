@@ -56,3 +56,23 @@ def test_malformed_codex_json(monkeypatch, tmp_path):
     (codex_home / "auth.json").write_text("not-json")
 
     assert discover_openai_api_key() is None
+
+
+def test_codex_tokens_without_key(monkeypatch, tmp_path):
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    monkeypatch.setenv("HOME", str(tmp_path))
+    codex_home = tmp_path / "codex"
+    monkeypatch.setenv("CODEX_HOME", str(codex_home))
+    codex_home.mkdir(parents=True, exist_ok=True)
+    (codex_home / "auth.json").write_text(
+        json.dumps(
+            {
+                "tokens": {
+                    "access_token": "chatgpt-access",
+                    "refresh_token": "chatgpt-refresh",
+                }
+            }
+        )
+    )
+
+    assert discover_openai_api_key() is None
