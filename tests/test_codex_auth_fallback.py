@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from sgpt.auth_fallback import discover_openai_api_key
+from sgpt.codex_auth import discover_openai_api_key
 
 
 def _write_sgpt_rc(home: Path, value: str) -> None:
@@ -76,3 +76,28 @@ def test_codex_tokens_without_key(monkeypatch, tmp_path):
     )
 
     assert discover_openai_api_key() is None
+
+
+def test_codex_tokens_exchange(monkeypatch, tmp_path):
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    monkeypatch.setenv("HOME", str(tmp_path))
+    codex_home = tmp_path / "codex"
+    monkeypatch.setenv("CODEX_HOME", str(codex_home))
+    codex_home.mkdir(parents=True, exist_ok=True)
+    auth_payload = {
+        "tokens": {
+            "id_token": "header.payload.signature",
+            "access_token": "chatgpt-access",
+            "refresh_token": "chatgpt-refresh",
+        }
+    }
+    (codex_home / "auth.json").write_text(json.dumps(auth_payload))
+
+    monkeypatch.setattr(
+        "sgpt.codex_auth.obtain_api_key",
+        lambda issuer, client_id, token: "new-key",
+    )
+
+    assert discover_openai_api_key() == "new-key"
+    stored = json.loads((codex_home / "auth.json").read_text())
+    assert stored.get("OPENAI_API_KEY") == "new-key"
