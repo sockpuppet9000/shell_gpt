@@ -1,5 +1,22 @@
 import os
 
+_disable_codex_fallback = os.getenv("SGPT_DISABLE_CODEX_FALLBACK", "").lower() in {
+    "1",
+    "true",
+    "yes",
+    "on",
+}
+
+if not _disable_codex_fallback and "OPENAI_API_KEY" not in os.environ:
+    try:
+        from sgpt.auth_fallback import discover_openai_api_key
+
+        _codex_key = discover_openai_api_key()
+        if _codex_key:
+            os.environ["OPENAI_API_KEY"] = _codex_key
+    except Exception:
+        pass
+
 # To allow users to use arrow keys in the REPL.
 import readline  # noqa: F401
 import sys
