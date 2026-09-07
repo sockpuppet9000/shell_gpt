@@ -1,6 +1,16 @@
 # Contributing to ShellGPT
 Thank you for considering contributing to ShellGPT! To ensure a smooth and enjoyable experience for everyone, please follow the steps outlined below.
 
+## Fork-local provenance review
+
+[The provisional register](REQUIREMENT_PROVENANCE.md) separates the origin,
+rationale and applicable status of the inherited contribution rules, documented
+usage contracts and built-in prompt clauses. [The evidence worksheet](PROVENANCE_REVIEW_TEMPLATE.md)
+is for later review with original messages or upstream decisions. It does not
+turn community feedback, a merge or general continuation into individual user
+confirmation. This annotation is a fork-local design proposal; upstream rules
+and runtime behavior are not redefined by it.
+
 ## Find an Issue to Work On
 - First, browse the existing issues to find one that interests you. If you find an issue you'd like to work on, assign it to yourself and leave a comment expressing your interest.
 - If you have a new feature idea that doesn't have an existing issue, please create a discussion in the "ideas" category using GitHub Discussions. Gather feedback from the community, and if you receive approval from at least a couple of people, create an issue and assign it to yourself.
@@ -30,7 +40,7 @@ With your environment set up and the issue assigned, you can start working on yo
 **This is a crucial step.** Any changes that implement a new feature or modify existing features should include tests. **Unverified code will not be merged.** These tests should call `sgpt` with defined arguments, capture the output, and verify that the feature works as expected. Refer to the `tests` folder for examples.
 
 ### Pull Request
-Before creating a pull request, run `scripts/lint.sh` and `scripts/tests.sh` to ensure all linters and tests pass. In your pull request, provide a high-level description of your changes and detailed instructions for testing them, including any necessary commands.
+Before creating a pull request, run `scripts/lint.sh` and `scripts/test.sh` to ensure all linters and tests pass. In your pull request, provide a high-level description of your changes and detailed instructions for testing them, including any necessary commands.
 
 ### Code Review
 After submitting your pull request, be patient and receptive to feedback from reviewers. Address any concerns they raise and collaborate to refine the code. Together, we can enhance the ShellGPT project.
