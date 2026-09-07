@@ -7,6 +7,10 @@ work. Use the companion [requirement register](REQUIREMENT_PROVENANCE.md) to
 select a concrete statement. Split grouped rows before assigning different
 origins, reasons or statuses to individual clauses.
 
+For the separate fork-policy proposal, use the
+[item-level source index](FORK_PROVENANCE_REVIEW.md). It supplements the
+main-source register without adopting those policies or completing their origin review.
+
 ## One record per instruction or independently decidable clause
 
 Copy this block for each reviewed ID. Empty fields mean **not yet checked**,
